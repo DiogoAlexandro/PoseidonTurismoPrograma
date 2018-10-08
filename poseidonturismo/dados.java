@@ -99,10 +99,10 @@ public boolean insereMotoristas(String tabela,String nome,String status){
     return retorno;
                                                          }
         
-         public boolean insereVenda(String tabela, String telefone, String nome, String endereco, String obs, String bairro, int motorista, String dt, String hora, int produto, String valor, String qtd ,int pgto){
+         public boolean insereVenda(String tabela, String telefone, String nome, String endereco, String obs, String bairro, int motorista, String dt, String hora, int produto, String valor, int pgto){
     boolean retorno = false;
     try{
-        PreparedStatement stmt =(PreparedStatement)this.con.prepareStatement("insert into " + tabela + "(telefone,nome,endereco,observacao,bairro,id_motorista,dt,hora,id_produto,valor,qtd,id_pgto) values('"+telefone+"','"+nome+"','"+endereco+"','"+obs+"','"+bairro+"',"+motorista+",'"+dt+"','"+hora+"',"+produto+",'"+valor+"','"+qtd+"',"+pgto+");");
+        PreparedStatement stmt =(PreparedStatement)this.con.prepareStatement("insert into " + tabela + "(telefone,nome,endereco,observacao,bairro,id_motorista,dt,hora,id_produto,valor,id_pgto) values('"+telefone+"','"+nome+"','"+endereco+"','"+obs+"','"+bairro+"',"+motorista+",'"+dt+"','"+hora+"',"+produto+",'"+valor+"',"+pgto+");");
         stmt.execute();
         stmt.close();
         retorno = true;
@@ -114,10 +114,10 @@ public boolean insereMotoristas(String tabela,String nome,String status){
     return retorno;
                                                          }
          
-                  public boolean insereVendaBkp(String tabela, String id_venda, String telefone, String nome, String endereco, String obs, String bairro, int motorista, String dt, String hora, int produto, String valor, String qtd,int pgto){
+                  public boolean insereVendaBkp(String tabela, String id_venda, String telefone, String nome, String endereco, String obs, String bairro, int motorista, String dt, String hora, int produto, String valor, int pgto){
     boolean retorno = false;
     try{
-        PreparedStatement stmt =(PreparedStatement)this.con.prepareStatement("insert into " + tabela + "(id_venda,telefone,nome,endereco,observacao,bairro,id_motorista,dt,hora,id_produto,valor,qtd,id_pgto) values('"+id_venda+"','"+telefone+"','"+nome+"','"+endereco+"','"+obs+"','"+bairro+"',"+motorista+",'"+dt+"','"+hora+"',"+produto+",'"+valor+"','"+qtd+"',"+pgto+");");
+        PreparedStatement stmt =(PreparedStatement)this.con.prepareStatement("insert into " + tabela + "(id_venda,telefone,nome,endereco,observacao,bairro,id_motorista,dt,hora,id_produto,valor,id_pgto) values('"+id_venda+"','"+telefone+"','"+nome+"','"+endereco+"','"+obs+"','"+bairro+"',"+motorista+",'"+dt+"','"+hora+"',"+produto+",'"+valor+"',"+pgto+");");
         stmt.execute();
         stmt.close();
         retorno = true;

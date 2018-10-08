@@ -75,7 +75,7 @@
           <SubComponents>
             <Menu class="javax.swing.JMenu" name="jMenu7">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cadastar/Alterar Motoristas"/>
+                <Property name="text" type="java.lang.String" value="Cadastar/Alterar Navios"/>
               </Properties>
               <Events>
                 <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenu7MousePressed"/>
@@ -90,7 +90,7 @@
           <SubComponents>
             <Menu class="javax.swing.JMenu" name="jMenu10">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cadastrar/Alterar Produtos"/>
+                <Property name="text" type="java.lang.String" value="Cadastrar/Alterar Pacotes"/>
               </Properties>
               <Events>
                 <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenu10MousePressed"/>

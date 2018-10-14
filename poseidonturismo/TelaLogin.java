@@ -1,5 +1,4 @@
-package poseidonturismo;
-
+package model;
 
 import java.awt.HeadlessException;
 import java.awt.Image;

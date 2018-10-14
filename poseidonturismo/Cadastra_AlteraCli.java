@@ -1,5 +1,4 @@
-package poseidonturismo;
-
+package model;
 
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.Image;

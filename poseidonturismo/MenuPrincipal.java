@@ -1,5 +1,4 @@
-package poseidonturismo;
-
+package model;
 
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.Image;
@@ -238,8 +237,8 @@ private void setIcone(){
     }//GEN-LAST:event_jMenu10MousePressed
 
     private void jMenu7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MousePressed
-       CadastraAlteraMotoristas cam = new CadastraAlteraMotoristas();
-       cam.setVisible(true);
+       CadastraAlteraNavios can = new CadastraAlteraNavios();
+       can.setVisible(true);
     }//GEN-LAST:event_jMenu7MousePressed
 
     private void jMenuItem1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MousePressed

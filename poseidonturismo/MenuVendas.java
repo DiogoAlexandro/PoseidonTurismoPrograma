@@ -1,5 +1,4 @@
-package poseidonturismo;
-
+package model;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -41,7 +40,7 @@ public class MenuVendas extends javax.swing.JFrame {
     public MenuVendas() {
         initComponents();
         d.conecta();
-        consultaComboMotorista();
+        consultaComboNavios();
         consultaComboPgto();
         consultaComboProduto();
         setIcone();
@@ -70,7 +69,7 @@ public class MenuVendas extends javax.swing.JFrame {
             TabelaVendas.getTableHeader().getColumnModel().getColumn(7).setMaxWidth(50); // Qtd
             TabelaVendas.getTableHeader().getColumnModel().getColumn(7).setMinWidth(50);
 //
-//          TabelaVendas.getTableHeader().getColumnModel().getColumn(8).setMaxWidth(100);  //Motorista
+//          TabelaVendas.getTableHeader().getColumnModel().getColumn(8).setMaxWidth(100);  //navios
   //        TabelaVendas.getTableHeader().getColumnModel().getColumn(8).setMinWidth(100);
 //
    //       TabelaVendas.getTableHeader().getColumnModel().getColumn(9).setMaxWidth(50);  //Pagamento
@@ -107,7 +106,7 @@ public class MenuVendas extends javax.swing.JFrame {
         btConfirma = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        comboMotorista = new javax.swing.JComboBox<>();
+        comboNavios = new javax.swing.JComboBox<>();
         comboPgto = new javax.swing.JComboBox<>();
         avisos = new javax.swing.JLabel();
         valor = new javax.swing.JTextField();
@@ -184,10 +183,10 @@ public class MenuVendas extends javax.swing.JFrame {
 
         jLabel7.setText("Pagamento");
 
-        comboMotorista.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboMotorista.addActionListener(new java.awt.event.ActionListener() {
+        comboNavios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboNavios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboMotoristaActionPerformed(evt);
+                comboNaviosActionPerformed(evt);
             }
         });
 
@@ -237,7 +236,7 @@ public class MenuVendas extends javax.swing.JFrame {
             new Object [][] {
             },
             new String [] {
-                "Cód. Venda", "Telefone", "Nome", "Endereço", "Bairro", "Observação", "Valor", "Qtd", "Produto", "Motorista", "Pagamento", "Hora", "Data"
+                "Cód. Venda", "Telefone", "Nome", "Endereço", "Bairro", "Observação", "Valor", "Qtd", "Produto", "Navios", "Pagamento", "Hora", "Data"
             }
         )
         {public boolean isCellEditable(int row, int column){return false;}}
@@ -274,7 +273,7 @@ public class MenuVendas extends javax.swing.JFrame {
                                         .addGroup(layout.createSequentialGroup()
                                             .addGap(31, 31, 31)
                                             .addComponent(jLabel6))
-                                        .addComponent(comboMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(comboNavios, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
                                             .addGap(65, 65, 65)
@@ -286,8 +285,7 @@ public class MenuVendas extends javax.swing.JFrame {
                                             .addGap(18, 18, 18)
                                             .addComponent(comboProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(18, 18, 18)
-                                            .addComponent(comboPgto, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                            .addComponent(comboPgto, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(endereco, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -369,7 +367,7 @@ public class MenuVendas extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(comboMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboNavios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboPgto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
@@ -401,13 +399,13 @@ public class MenuVendas extends javax.swing.JFrame {
         }
     }
     
-    private void consultaComboMotorista() {
-        // Método para preencher o comboBox de Motoristas
-        comboMotorista.removeAllItems();
-        ResultSet motorista = d.consulta("select nome_motorista from motoristas where status = 'Ativo'");
+    private void consultaComboNavios() {
+        // Método para preencher o comboBox de Navios
+        comboNavios.removeAllItems();
+        ResultSet navios = d.consulta("select nome_navios from navios where status = 'Ativo'");
         try {
-            while (motorista.next()) {
-                comboMotorista.addItem(motorista.getString("nome_motorista"));
+            while (navios.next()) {
+                comboNavios.addItem(navios.getString("nome_navios"));
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -415,22 +413,15 @@ public class MenuVendas extends javax.swing.JFrame {
     }
     
        private void consultaComboProduto() {
-        // Método para preencher o comboBox de Motoristas
+        // Método para preencher o comboBox de Navios
         comboProduto.removeAllItems();
-        ResultSet motorista = d.consulta("select descricao_prod from produtos where status = 'Ativo'");
-        try {
-            while (motorista.next()) {
-                comboProduto.addItem(motorista.getString("descricao_prod"));
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
+        ResultSet navios = d.consulta("select descricao_prod from produtos where status = 'Ativo'");
     }
     
     private void retornaVenda(){
         String tel = telefone.getText();
         tel = tel.replaceAll("-", "");
-        ResultSet vendaAtual = d.consulta("select vendas.telefone,vendas.nome,vendas.endereco,vendas.bairro,vendas.observacao,motoristas.nome_motorista,forma_pgto.descricao,vendas.valor,produtos.descricao_prod from vendas,produtos,motoristas,forma_pgto where vendas.id_produto = produtos.id_produto and vendas.id_motorista = motoristas.id_motorista and vendas.id_pgto = forma_pgto.id_pgto and id_venda = " + n_venda.getText() + "");
+        ResultSet vendaAtual = d.consulta("select vendas.telefone,vendas.nome,vendas.endereco,vendas.bairro,vendas.observacao,navios.nome_navios,forma_pgto.descricao,vendas.valor,produtos.descricao_prod from vendas,produtos,navios,forma_pgto where vendas.id_produto = produtos.id_produto and vendas.id_navios = navios.id_navios and vendas.id_pgto = forma_pgto.id_pgto and id_venda = " + n_venda.getText() + "");
         
         try{
         if(vendaAtual.next()){ // Retorna os dados do SELECT pelo ID da VENDA.
@@ -441,7 +432,7 @@ public class MenuVendas extends javax.swing.JFrame {
             endereco.setText(vendaAtual.getString("endereco"));
             bairro.setText(vendaAtual.getString("bairro"));
             obs.setText(vendaAtual.getString("observacao"));
-            comboMotorista.setSelectedItem(vendaAtual.getString("nome_motorista"));
+            comboNavios.setSelectedItem(vendaAtual.getString("nome_navios"));
             comboPgto.setSelectedItem(vendaAtual.getString("descricao"));
             valor.setText(vendaAtual.getString("valor"));
             comboProduto.setSelectedItem(vendaAtual.getString("descricao_prod"));
@@ -514,10 +505,10 @@ public class MenuVendas extends javax.swing.JFrame {
         }
         }
 
-         //Pega o ID do motorista pelo nome no comboBox
-         ResultSet comboMoto = d.consulta("select id_motorista from motoristas where nome_motorista = '" + comboMotorista.getSelectedItem() + "'");
+         //Pega o ID do navios pelo nome no comboBox
+         ResultSet comboMoto = d.consulta("select id_navios from navios where nome_navios = '" + comboNavios.getSelectedItem() + "'");
          comboMoto.next();
-         int cMoto = comboMoto.getInt("id_motorista");
+         int cMoto = comboMoto.getInt("id_navios");
          //Pega o ID do pagamento pelo nome no comboBox
           ResultSet comboPagamento = d.consulta("select id_pgto from forma_pgto where descricao = '" + comboPgto.getSelectedItem() + "'");
          comboPagamento.next();
@@ -534,7 +525,7 @@ public class MenuVendas extends javax.swing.JFrame {
           
 
          //Atualiza a Venda.
-         if(d.atualizaClientes("vendas", "nome='"+nome.getText()+"',endereco='"+endereco.getText()+"',bairro='"+bairro.getText()+"',observacao='"+obs.getText()+"',id_motorista="+cMoto+",valor='"+valor.getText()+"',id_pgto="+cPgto+"","id_venda='"+n_venda.getText()+"'")){
+         if(d.atualizaClientes("vendas", "nome='"+nome.getText()+"',endereco='"+endereco.getText()+"',bairro='"+bairro.getText()+"',observacao='"+obs.getText()+"',id_navios="+cMoto+",valor='"+valor.getText()+"',id_pgto="+cPgto+"","id_venda='"+n_venda.getText()+"'")){
              avisos.setText("Venda alterada!");
              limpaTodosCampos();
              TabelaV();
@@ -590,14 +581,14 @@ public class MenuVendas extends javax.swing.JFrame {
                         String observacao = (modelotabela.getValueAt(i, 5).toString());  // Pega o campo Observação.  
                         String valor = (modelotabela.getValueAt(i, 6).toString());  // Pega o valor.
                         String qt = (modelotabela.getValueAt(i, 7).toString());  // Pega a quantidade.  
-                        String produto = (modelotabela.getValueAt(i, 8).toString());  // Pega o nome do motorista.  
-                        String nome_motorista = (modelotabela.getValueAt(i, 9).toString());  // Pega o nome do motorista.  
+                        String produto = (modelotabela.getValueAt(i, 8).toString());  // Pega o nome do navios.  
+                        String nome_navios = (modelotabela.getValueAt(i, 9).toString());  // Pega o nome do navios.  
                         String forma_pgto = (modelotabela.getValueAt(i, 10).toString());  // Pega a forma de pgto.  
                         
-                        //Pega o ID do motorista pelo nome no comboBox
-                        ResultSet comboMoto = d.consulta("select id_motorista from motoristas where nome_motorista = '" + nome_motorista + "'");
+                        //Pega o ID do navios pelo nome no comboBox
+                        ResultSet comboMoto = d.consulta("select id_navios from navios where nome_navios = '" + nome_navios + "'");
                         comboMoto.next();
-                        int cMoto = comboMoto.getInt("id_motorista");
+                        int cMoto = comboMoto.getInt("id_navios");
                         
                         //Pega o ID do pagamento pelo nome no comboBox
                          ResultSet comboPagamento = d.consulta("select id_pgto from forma_pgto where descricao = '" + forma_pgto + "'");
@@ -641,14 +632,14 @@ public class MenuVendas extends javax.swing.JFrame {
                         String observacao = (modelotabela.getValueAt(i, 5).toString());  // Pega o campo Observação.  
                         String valor = (modelotabela.getValueAt(i, 6).toString());  // Pega o valor.
                         String qt = (modelotabela.getValueAt(i, 7).toString());  // Pega a quantidade.  
-                        String produto = (modelotabela.getValueAt(i, 8).toString());  // Pega o nome do motorista.  
-                        String nome_motorista = (modelotabela.getValueAt(i, 9).toString());  // Pega o nome do motorista.  
+                        String produto = (modelotabela.getValueAt(i, 8).toString());  // Pega o nome do navios.  
+                        String nome_navios = (modelotabela.getValueAt(i, 9).toString());  // Pega o nome do navios.  
                         String forma_pgto = (modelotabela.getValueAt(i, 10).toString());  // Pega a forma de pgto.  
                         
-                        //Pega o ID do motorista pelo nome no comboBox
-                        ResultSet comboMoto = d.consulta("select id_motorista from motoristas where nome_motorista = '" + nome_motorista + "'");
+                        //Pega o ID do navios pelo nome no comboBox
+                        ResultSet comboMoto = d.consulta("select id_navios from navios where nome_navios = '" + nome_navios + "'");
                         comboMoto.next();
-                        int cMoto = comboMoto.getInt("id_motorista");
+                        int cMoto = comboMoto.getInt("id_navios");
                         
                         //Pega o ID do pagamento pelo nome no comboBox
                          ResultSet comboPagamento = d.consulta("select id_pgto from forma_pgto where descricao = '" + forma_pgto + "'");
@@ -795,7 +786,7 @@ public class MenuVendas extends javax.swing.JFrame {
 //        TabelaVendas.getColumnModel().getColumn(5).setHeaderValue("Observação");
 //        TabelaVendas.getColumnModel().getColumn(6).setHeaderValue("Valor");
 //        TabelaVendas.getColumnModel().getColumn(7).setHeaderValue("Quantidade");
-//        TabelaVendas.getColumnModel().getColumn(8).setHeaderValue("Motorista");
+//        TabelaVendas.getColumnModel().getColumn(8).setHeaderValue("navios");
 //        TabelaVendas.getColumnModel().getColumn(9).setHeaderValue("Pagamento");
 //        TabelaVendas.getColumnModel().getColumn(10).setHeaderValue("Hora");
 //        TabelaVendas.getColumnModel().getColumn(11).setHeaderValue("Data");
@@ -803,8 +794,8 @@ public class MenuVendas extends javax.swing.JFrame {
 
 
 
-        ResultSet rs = d.consulta("select vendas.id_venda,vendas.telefone,vendas.nome,vendas.endereco,vendas.bairro,vendas.observacao,vendas.valor,vendas.qtd,produtos.descricao_prod,motoristas.nome_motorista,forma_pgto.descricao,vendas.hora,date_format(dt, '%d/%m/%y') from vendas,produtos,motoristas,forma_pgto\n" +
-"where vendas.id_produto = produtos.id_produto and vendas.id_motorista = motoristas.id_motorista and vendas.id_pgto = forma_pgto.id_pgto ORDER BY id_venda asc");
+        ResultSet rs = d.consulta("select vendas.id_venda,vendas.telefone,vendas.nome,vendas.endereco,vendas.bairro,vendas.observacao,vendas.valor,vendas.qtd,produtos.descricao_prod,navios.nome_navios,forma_pgto.descricao,vendas.hora,date_format(dt, '%d/%m/%y') from vendas,produtos,navios,forma_pgto\n" +
+"where vendas.id_produto = produtos.id_produto and vendas.id_navios = navios.id_navios and vendas.id_pgto = forma_pgto.id_pgto ORDER BY id_venda asc");
        
         int linha = 0;
             try {
@@ -819,7 +810,7 @@ public class MenuVendas extends javax.swing.JFrame {
                     modelotabela.setValueAt(rs.getString("valor"), linha, 6);
                     modelotabela.setValueAt(rs.getString("qtd"), linha, 7);
                     modelotabela.setValueAt(rs.getString("descricao_prod"), linha, 8);     
-                    modelotabela.setValueAt(rs.getString("nome_motorista"), linha, 9);
+                    modelotabela.setValueAt(rs.getString("nome_navios"), linha, 9);
                     modelotabela.setValueAt(rs.getString("descricao"), linha, 10);
                     modelotabela.setValueAt(rs.getString("hora"), linha, 11);
                     modelotabela.setValueAt(rs.getString("date_format(dt, '%d/%m/%y')"), linha, 12);
@@ -853,7 +844,7 @@ public class MenuVendas extends javax.swing.JFrame {
 //        TabelaVendas.getColumnModel().getColumn(5).setHeaderValue("Observação");
 //        TabelaVendas.getColumnModel().getColumn(6).setHeaderValue("Valor");
 //        TabelaVendas.getColumnModel().getColumn(7).setHeaderValue("Quantidade");
-//        TabelaVendas.getColumnModel().getColumn(8).setHeaderValue("Motorista");
+//        TabelaVendas.getColumnModel().getColumn(8).setHeaderValue("navios");
 //        TabelaVendas.getColumnModel().getColumn(9).setHeaderValue("Pagamento");
 //        TabelaVendas.getColumnModel().getColumn(10).setHeaderValue("Hora");
 //        TabelaVendas.getColumnModel().getColumn(11).setHeaderValue("Data");
@@ -861,8 +852,8 @@ public class MenuVendas extends javax.swing.JFrame {
 
 
 
-        ResultSet rs = d.consulta("select vendas.id_venda,vendas.telefone,vendas.nome,vendas.endereco,vendas.bairro,vendas.observacao,vendas.valor,vendas.qtd,produtos.descricao_prod,motoristas.nome_motorista,forma_pgto.descricao,vendas.hora,dt from vendas,produtos,motoristas,forma_pgto\n"
-                + "where vendas.id_produto = produtos.id_produto and vendas.id_motorista = motoristas.id_motorista and vendas.id_pgto = forma_pgto.id_pgto ORDER BY id_venda asc;");
+        ResultSet rs = d.consulta("select vendas.id_venda,vendas.telefone,vendas.nome,vendas.endereco,vendas.bairro,vendas.observacao,vendas.valor,vendas.qtd,produtos.descricao_prod,navios.nome_navios,forma_pgto.descricao,vendas.hora,dt from vendas,produtos,navios,forma_pgto\n"
+                + "where vendas.id_produto = produtos.id_produto and vendas.id_navios = navios.id_navios and vendas.id_pgto = forma_pgto.id_pgto ORDER BY id_venda asc;");
        
         int linha = 0;
             try {
@@ -877,7 +868,7 @@ public class MenuVendas extends javax.swing.JFrame {
                     modelotabela.setValueAt(rs.getString("valor"), linha, 6);
                     modelotabela.setValueAt(rs.getString("qtd"), linha, 7);
                     modelotabela.setValueAt(rs.getString("descricao_prod"), linha, 8);     
-                    modelotabela.setValueAt(rs.getString("nome_motorista"), linha, 9);
+                    modelotabela.setValueAt(rs.getString("nome_navios"), linha, 9);
                     modelotabela.setValueAt(rs.getString("descricao"), linha, 10);
                     modelotabela.setValueAt(rs.getString("hora"), linha, 11);
                     modelotabela.setValueAt(rs.getString("dt"), linha, 12);
@@ -990,10 +981,10 @@ public class MenuVendas extends javax.swing.JFrame {
           ResultSet valorP = d.consulta("select valorpadrao from produtos where descricao_prod = '" + comboProduto.getSelectedItem() + "'");
           valorP.next();
 
-         //Pega o ID do motorista pelo nome no comboBox
-         ResultSet comboMoto = d.consulta("select id_motorista from motoristas where nome_motorista = '" + comboMotorista.getSelectedItem() + "'");
+         //Pega o ID do navios pelo nome no comboBox
+         ResultSet comboMoto = d.consulta("select id_navios from navios where nome_navios = '" + comboNavios.getSelectedItem() + "'");
          comboMoto.next();
-         int cMoto = comboMoto.getInt("id_motorista");
+         int cMoto = comboMoto.getInt("id_navios");
          //Pega o ID do pagamento pelo nome no comboBox
           ResultSet comboPagamento = d.consulta("select id_pgto from forma_pgto where descricao = '" + comboPgto.getSelectedItem() + "'");
          comboPagamento.next();
@@ -1053,9 +1044,9 @@ public class MenuVendas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_telefoneActionPerformed
 
-    private void comboMotoristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMotoristaActionPerformed
+    private void comboNaviosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboNaviosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboMotoristaActionPerformed
+    }//GEN-LAST:event_comboNaviosActionPerformed
 
     private void n_vendaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_n_vendaKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
@@ -1083,8 +1074,6 @@ public class MenuVendas extends javax.swing.JFrame {
     
     private void setIcone(){
         URL caminhoIcone = getClass().getResource("/images/iconeMenuVendas.png");
-        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoIcone);
-        this.setIconImage(iconeTitulo);
     }
     
     public static void main(String args[]) {
@@ -1128,7 +1117,7 @@ public class MenuVendas extends javax.swing.JFrame {
     private javax.swing.JTextField bairro;
     private javax.swing.JButton btAltera;
     private javax.swing.JButton btConfirma;
-    private javax.swing.JComboBox<String> comboMotorista;
+    private javax.swing.JComboBox<String> comboNavios;
     private javax.swing.JComboBox<String> comboPgto;
     private javax.swing.JComboBox<String> comboProduto;
     private javax.swing.JTextField endereco;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package poseidonturismo;
+package model;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -88,7 +88,7 @@ public class relatorioClienteTelefone extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Telefone", "Nome", "Endereço", "Bairro", "Valor", "Qtd", "Produto", "Motorista", "Pagamento", "Hora", "Data"
+                "Telefone", "Nome", "Endereço", "Bairro", "Valor", "Qtd", "Produto", "Navios", "Pagamento", "Hora", "Data"
             }
         )
         {public boolean isCellEditable(int row, int column){return false;}}
@@ -162,8 +162,8 @@ public class relatorioClienteTelefone extends javax.swing.JFrame {
          DefaultTableModel modelotabela = (DefaultTableModel) TabelaClientes.getModel();
          modelotabela.setNumRows(0);
       try{
-         ResultSet vendasBkp = d.consulta("select vendas_bkp.telefone,vendas_bkp.nome,vendas_bkp.endereco,vendas_bkp.bairro,vendas_bkp.valor,vendas_bkp.qtd,produtos.descricao_prod,motoristas.nome_motorista,forma_pgto.descricao,vendas_bkp.hora,date_format(dt, '%d/%m/%y') from vendas_bkp,produtos,motoristas,forma_pgto\n" +
-     "where telefone ='"+tel+"' and vendas_bkp.id_motorista = motoristas.id_motorista and produtos.id_produto = vendas_bkp.id_produto and vendas_bkp.id_pgto = forma_pgto.id_pgto ORDER BY dt desc;");   
+         ResultSet vendasBkp = d.consulta("select vendas_bkp.telefone,vendas_bkp.nome,vendas_bkp.endereco,vendas_bkp.bairro,vendas_bkp.valor,vendas_bkp.qtd,produtos.descricao_prod,navios.nome_navios,forma_pgto.descricao,vendas_bkp.hora,date_format(dt, '%d/%m/%y') from vendas_bkp,produtos,navios,forma_pgto\n" +
+     "where telefone ='"+tel+"' and vendas_bkp.id_navios = navios.id_navios and produtos.id_produto = vendas_bkp.id_produto and vendas_bkp.id_pgto = forma_pgto.id_pgto ORDER BY dt desc;");   
                     int linha = 0;
                     while(vendasBkp.next()) {
                     modelotabela.addRow(new String[modelotabela.getColumnCount()]);
@@ -174,7 +174,7 @@ public class relatorioClienteTelefone extends javax.swing.JFrame {
                     modelotabela.setValueAt(vendasBkp.getString("valor"), linha, 4);
                     modelotabela.setValueAt(vendasBkp.getString("qtd"), linha, 5);
                     modelotabela.setValueAt(vendasBkp.getString("descricao_prod"), linha, 6);
-                    modelotabela.setValueAt(vendasBkp.getString("nome_motorista"), linha, 7);
+                    modelotabela.setValueAt(vendasBkp.getString("nome_navios"), linha, 7);
                     modelotabela.setValueAt(vendasBkp.getString("descricao"), linha, 8);     
                     modelotabela.setValueAt(vendasBkp.getString("hora"), linha, 9);
                     modelotabela.setValueAt(vendasBkp.getString("date_format(dt, '%d/%m/%y')"), linha, 10);
@@ -191,8 +191,8 @@ public class relatorioClienteTelefone extends javax.swing.JFrame {
               tel = tel.replaceAll("-", "");
                    DefaultTableModel modelotabela = (DefaultTableModel) TabelaClientes.getModel();
                    modelotabela.setNumRows(0);
-              ResultSet vendasAt = d.consulta("select vendas.telefone,vendas.nome,vendas.endereco,vendas.bairro,vendas.valor,vendas.qtd,produtos.descricao_prod,motoristas.nome_motorista,forma_pgto.descricao,vendas.hora,date_format(dt, '%d/%m/%y') from vendas,produtos,motoristas,forma_pgto\n" +
-"where telefone ='"+tel+"' and vendas.id_motorista = motoristas.id_motorista and produtos.id_produto = vendas.id_produto and vendas.id_pgto = forma_pgto.id_pgto ORDER BY dt desc;"); 
+              ResultSet vendasAt = d.consulta("select vendas.telefone,vendas.nome,vendas.endereco,vendas.bairro,vendas.valor,vendas.qtd,produtos.descricao_prod,navios.nome_navios,forma_pgto.descricao,vendas.hora,date_format(dt, '%d/%m/%y') from vendas,produtos,navios,forma_pgto\n" +
+"where telefone ='"+tel+"' and vendas.id_navios = navios.id_navio and produtos.id_produto = vendas.id_produto and vendas.id_pgto = forma_pgto.id_pgto ORDER BY dt desc;"); 
                      int linha = 0;
                     while(vendasAt.next()) {
                     modelotabela.addRow(new String[modelotabela.getColumnCount()]);
@@ -203,7 +203,7 @@ public class relatorioClienteTelefone extends javax.swing.JFrame {
                     modelotabela.setValueAt(vendasAt.getString("valor"), linha, 4);
                     modelotabela.setValueAt(vendasAt.getString("qtd"), linha, 5);
                     modelotabela.setValueAt(vendasAt.getString("descricao_prod"), linha, 6);
-                    modelotabela.setValueAt(vendasAt.getString("nome_motorista"), linha, 7);
+                    modelotabela.setValueAt(vendasAt.getString("nome_navios"), linha, 7);
                     modelotabela.setValueAt(vendasAt.getString("descricao"), linha, 8);     
                     modelotabela.setValueAt(vendasAt.getString("hora"), linha, 9);
                     modelotabela.setValueAt(vendasAt.getString("date_format(dt, '%d/%m/%y')"), linha, 10);

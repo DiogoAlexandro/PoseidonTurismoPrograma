@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package poseidonturismo;
+package model;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -21,7 +21,9 @@ import javax.swing.table.DefaultTableModel;
  * @author Lucas
  */
 public class RelatorioData extends javax.swing.JFrame {
+
     dados d = new dados();
+
     /**
      * Creates new form RelatorioData
      */
@@ -31,59 +33,57 @@ public class RelatorioData extends javax.swing.JFrame {
         TabelaRelatorio.getTableHeader().setReorderingAllowed(false);
         setIcone();
     }
-    
-    private void setIcone(){
+
+    private void setIcone() {
         URL caminhoIcone = getClass().getResource("/images/iconeRelatorios.png");
         Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoIcone);
         this.setIconImage(iconeTitulo);
     }
 
-   public void buscaPorData(){
+    public void buscaPorData() {
         DefaultTableModel modelotabela = (DefaultTableModel) TabelaRelatorio.getModel();
         TabelaRelatorio.setRowSelectionAllowed(false);
-         modelotabela.setNumRows(0);
-       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-       String dataInicio = sdf.format(dataInicial.getDate());
-       String dataFim = sdf.format(dataFinal.getDate());
-       ResultSet rs = d.consulta("select vendas_bkp.id_venda,vendas_bkp.telefone,vendas_bkp.nome,vendas_bkp.endereco,vendas_bkp.bairro,vendas_bkp.observacao,\n" +
-"vendas_bkp.valor,vendas_bkp.qtd,produtos.descricao_prod,forma_pgto.descricao,motoristas.nome_motorista,vendas_bkp.hora,date_format(vendas_bkp.dt, '%d/%m/%y') from vendas_bkp,produtos,motoristas,forma_pgto\n" +
-"where dt between '"+dataInicio+"' and '"+dataFim+"' and vendas_bkp.id_produto = produtos.id_produto and vendas_bkp.id_motorista = motoristas.id_motorista and vendas_bkp.id_pgto = forma_pgto.id_pgto ORDER BY dt asc");
-       
-       try {
+        modelotabela.setNumRows(0);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String dataInicio = sdf.format(dataInicial.getDate());
+        String dataFim = sdf.format(dataFinal.getDate());
+        ResultSet rs = d.consulta("select vendas_bkp.id_venda,vendas_bkp.telefone,vendas_bkp.nome,vendas_bkp.endereco,vendas_bkp.bairro,vendas_bkp.observacao,\n"
+                + "vendas_bkp.valor,vendas_bkp.qtd,produtos.descricao_prod,forma_pgto.descricao,navios.nome_navios,vendas_bkp.hora,date_format(vendas_bkp.dt, '%d/%m/%y') from vendas_bkp,produtos,navios,forma_pgto\n"
+                + "where dt between '" + dataInicio + "' and '" + dataFim + "' and vendas_bkp.id_produto = produtos.id_produto and vendas_bkp.id_navios = navios.id_navios and vendas_bkp.id_pgto = forma_pgto.id_pgto ORDER BY dt asc");
+
+        try {
             int linha = 0;
-             while(rs.next()) {
-                    modelotabela.addRow(new String[modelotabela.getColumnCount()]);
-                    modelotabela.setValueAt(rs.getString("id_venda"), linha, 0);
-                    modelotabela.setValueAt(rs.getString("telefone"), linha, 1);
-                    modelotabela.setValueAt(rs.getString("nome"), linha, 2);
-                    modelotabela.setValueAt(rs.getString("endereco"), linha, 3);
-                    modelotabela.setValueAt(rs.getString("bairro"), linha, 4);
-                    modelotabela.setValueAt(rs.getString("observacao"), linha, 5);
-                    modelotabela.setValueAt(rs.getString("valor"), linha, 6);
-                    modelotabela.setValueAt(rs.getString("qtd"), linha, 7);
-                    modelotabela.setValueAt(rs.getString("descricao_prod"), linha, 8);     
-                    modelotabela.setValueAt(rs.getString("descricao"), linha, 9);
-                    modelotabela.setValueAt(rs.getString("nome_motorista"), linha, 10);
-                    modelotabela.setValueAt(rs.getString("hora"), linha, 11);
-                    modelotabela.setValueAt(rs.getString("date_format(vendas_bkp.dt, '%d/%m/%y')"), linha, 12);
-                    linha++;
-                              }
-                 }      
-            catch (Exception e) {
-                    System.err.println("Erro: " + e);
-                                }   
-       
-       
-   }
-   
-   private void somaVendas(){
-       DefaultTableModel modelotabela = (DefaultTableModel) TabelaRelatorio.getModel();  
-             
+            while (rs.next()) {
+                modelotabela.addRow(new String[modelotabela.getColumnCount()]);
+                modelotabela.setValueAt(rs.getString("id_venda"), linha, 0);
+                modelotabela.setValueAt(rs.getString("telefone"), linha, 1);
+                modelotabela.setValueAt(rs.getString("nome"), linha, 2);
+                modelotabela.setValueAt(rs.getString("endereco"), linha, 3);
+                modelotabela.setValueAt(rs.getString("bairro"), linha, 4);
+                modelotabela.setValueAt(rs.getString("observacao"), linha, 5);
+                modelotabela.setValueAt(rs.getString("valor"), linha, 6);
+                modelotabela.setValueAt(rs.getString("qtd"), linha, 7);
+                modelotabela.setValueAt(rs.getString("descricao_prod"), linha, 8);
+                modelotabela.setValueAt(rs.getString("descricao"), linha, 9);
+                modelotabela.setValueAt(rs.getString("nome_navios"), linha, 10);
+                modelotabela.setValueAt(rs.getString("hora"), linha, 11);
+                modelotabela.setValueAt(rs.getString("date_format(vendas_bkp.dt, '%d/%m/%y')"), linha, 12);
+                linha++;
+            }
+        } catch (Exception e) {
+            System.err.println("Erro: " + e);
+        }
+
+    }
+
+    private void somaVendas() {
+        DefaultTableModel modelotabela = (DefaultTableModel) TabelaRelatorio.getModel();
+
         int total = modelotabela.getRowCount();
-        
-         n_vendas.setText(String.valueOf(total));
-   }
-    
+
+        n_vendas.setText(String.valueOf(total));
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -124,7 +124,7 @@ public class RelatorioData extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Cód. Venda", "Telefone", "Nome", "Endereço", "Bairro", "Observação", "Valor", "Qtd", "Produto", "Pagamento", "Motorista", "Hora", "Data"
+                "Cód. Venda", "Telefone", "Nome", "Endereço", "Bairro", "Observação", "Valor", "Qtd", "Produto", "Pagamento", "Navios", "Hora", "Data"
             }
         )
         {public boolean isCellEditable(int row, int column){return false;}}
@@ -206,8 +206,8 @@ public class RelatorioData extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1KeyPressed
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
-    buscaPorData();
-    somaVendas();
+        buscaPorData();
+        somaVendas();
     }//GEN-LAST:event_jButton1MousePressed
 
     /**
